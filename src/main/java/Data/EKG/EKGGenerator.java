@@ -1,9 +1,9 @@
-package Data;
+package Data.EKG;
 
-import java.sql.Timestamp;
+public class EKGGenerator  {
 
-public class EKGGenerator implements EKGObservable {
-    private EKGObserver ekgobserver;
+    }
+   /* private EKGObserver ekgobserver;
 
     public void register(EKGObserver ekgObserver) {
         this.ekgobserver = ekgObserver;
@@ -23,5 +23,5 @@ public class EKGGenerator implements EKGObservable {
                 e.printStackTrace();
             }
         }
-    }
-}
+    }*/
+

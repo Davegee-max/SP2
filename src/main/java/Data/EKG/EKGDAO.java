@@ -1,4 +1,4 @@
-package Data;
+package Data.EKG;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -8,4 +8,5 @@ public interface EKGDAO {
 
     List<EKGDTO> load(Timestamp time);
 
+    void save(List<EKGDTO> ekgdtoList);
 }

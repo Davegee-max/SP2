@@ -1,4 +1,4 @@
-package Data;
+package Data.EKG;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,7 @@ public class EKGDAOSQLImpl implements EKGDAO {
         Connection connection = SQLConnector.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM EKGdata WHERE time>?");
+            //SELECT Puls.puls, Temperatur.Temperatur FROM Puls INNER JOIN Temperatur ON Temperatur.CPR = Puls.CPR WHERE time>?
             preparedStatement.setTimestamp(1,time);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
@@ -33,7 +34,9 @@ public class EKGDAOSQLImpl implements EKGDAO {
                 ekgdto.setEKG(resultSet.getDouble("EKG"));
                 data.add(ekgdto);
 
+
             }
+
 
 
 
@@ -42,5 +45,24 @@ public class EKGDAOSQLImpl implements EKGDAO {
     }
         return data;
 }
-}
+
+    @Override
+    public void save(List<EKGDTO> ekgdtoList) {
+        Connection conn = SQLConnector.getConnection();
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO EKGdata(CPR,time,EKG) VALUES (?,?,?)");
+            for (int i = 0; i < ekgdtoList.size(); i++){
+            preparedStatement.setString(1, (ekgdtoList.get(i).getCPR()));
+            preparedStatement.setTimestamp(2, (ekgdtoList.get(i).getTime()));
+            preparedStatement.setDouble(3,ekgdtoList.get(i).getEKG());
+            preparedStatement.addBatch();
+            preparedStatement.executeBatch();}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    }
+
 

@@ -1,9 +1,4 @@
 package ProducerConsumer;
-import Data.EKGDTO;
-import SerialPort.EKGSensor;
-
-import java.util.LinkedList;
-import java.util.List;
 
 
 public class PC {

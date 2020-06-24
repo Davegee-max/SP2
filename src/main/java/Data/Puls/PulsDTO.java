@@ -1,10 +1,10 @@
-package Data;
+package Data.Puls;
 
 import java.sql.Timestamp;
 
-public class EKGDTO {
+public class PulsDTO {
     private String CPR;
-    private double EKG;
+    private double puls;
     private Timestamp time;
 
     public String getCPR() {
@@ -15,12 +15,12 @@ public class EKGDTO {
         this.CPR = CPR;
     }
 
-    public double getEKG() {
-        return EKG;
+    public double getPuls() {
+        return puls;
     }
 
-    public void setEKG(double EKG) {
-        this.EKG = EKG;
+    public void setPuls(double puls) {
+        this.puls = puls;
     }
 
     public Timestamp getTime() {

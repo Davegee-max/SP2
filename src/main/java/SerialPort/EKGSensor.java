@@ -1,34 +1,35 @@
 package SerialPort;
 
-import Data.EKGDTO;
-import com.sun.xml.internal.bind.v2.TODO;
+import Data.EKG.EKGDTO;
+import Data.EKG.EKGObservable;
+import Data.EKG.EKGObserver;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortList;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class EKGSensor {
+public class EKGSensor implements EKGObservable {
     String[] ports = SerialPortList.getPortNames();
     SerialPort serialPort;
     private String result = null;
     private String bufferstring = "";
     private List<EKGDTO> guiList =new LinkedList<>();
+    private EKGObserver observer;
 
     public EKGSensor() {
         System.out.println(ports[0]);
-        System.out.println("EKG SENSOR INITIERET");
+        System.out.println(ports[0]+"Data.EKG SENSOR INITIERET");
 
         try {
             serialPort = new SerialPort(ports[0]);
             serialPort.openPort();
             serialPort.setRTS(true);
             serialPort.setDTR(true);
-            serialPort.setParams(9600, 8, 1, serialPort.PARITY_NONE);
+            serialPort.setParams(115200, 8, 1, serialPort.PARITY_NONE);
             serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
         } catch (SerialPortException e) {
             e.printStackTrace();
@@ -46,29 +47,30 @@ public class EKGSensor {
                 String parseString = bufferstring.substring(0,i).trim();
                 bufferstring = bufferstring.substring(i);
 
-               //System.out.println(parseString);
+
+
 
                 String[] inputValues;
 
-                if (parseString != null && parseString.charAt(parseString.length() - 1) == ' ') ;
-                parseString = parseString.substring(0, parseString.length() - 1);
+
+
+
                 inputValues = parseString.split(" ");
                 List<EKGDTO> ekgdtos = new LinkedList<>();
                 for (int h = 0; h < inputValues.length; h++) {
                     if (!Objects.equals(inputValues[h],"")) {
                        EKGDTO ekgdto = new EKGDTO();
-                       ekgdto.setEKG(Integer.parseInt(inputValues[h]));
+                        ekgdto.setTime(new Timestamp(System.currentTimeMillis()));
+
+                        try {
+                            ekgdto.setEKG(Integer.parseInt(inputValues[h]));
+                        } catch(Exception e){
+                            System.out.println("fejl fundet");
+
+                        }
                        ekgdtos.add(ekgdto);
 
-                        //System.out.println(ekgdtos.get(h).getEKG());
 
-                        /*
-                        if (Values[h] != null && !Values[h].equals("")) {
-                            EKGDTO ekgdto = new EKGDTO();
-                            ekgdto.setEKG(Double.parseDouble(Values[h]));
-                            values.add(ekgdto);
-                            System.out.println(Arrays.toString(Values));
-                         */
                    }
 
                 }
@@ -77,17 +79,17 @@ public class EKGSensor {
                     //TODO print i gui
                     for (int k=0; k<guiList.size() ; k++)
                     {
-                        System.out.println(guiList.get(k).getEKG());
-                        guiList.clear();
+
+
+
                     }
-                 // System.out.println(Arrays.deepToString(guiList.toArray()));
-                    //guiList.forEach(System.out::println);
-                    //System.out.println(guiList.get(i).getEKG());
-                    /*for (int k = 0; k < guiList.size(); k++) {
-                        System.out.println(guiList.get(k).getEKG());
-                        guiList.clear();
+                    if(observer!=null){
+                        List<EKGDTO> notifyList = guiList;
+                        guiList = new LinkedList<>();
+                        observer.notify(notifyList);
                     }
-*/
+
+
 
                 }
                 return guiList;
@@ -96,6 +98,23 @@ public class EKGSensor {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void register(EKGObserver ekgObserver) {
+        this.observer = ekgObserver;
+    }
+
+    @Override
+    public void run() {
+        while(true){
+
+            hentData();
+
+
+
+
+    }
     }
 }
 /*System.out.println(result);

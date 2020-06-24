@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
 <AnchorPane prefHeight="464.0" prefWidth="600.0" style="-fx-background-color: wheat" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.GUIController">
    <children>
-      <Button layoutX="21.0" layoutY="239.0" mnemonicParsing="false" onAction="#StartDataCollection" text="Start Data" />
-      <Button layoutX="157.0" layoutY="239.0" mnemonicParsing="false" onAction="#StartRecording" prefHeight="25.0" prefWidth="123.0" text="Start recording" />
+      <Button layoutX="30.0" layoutY="101.0" mnemonicParsing="false" onAction="#pulsKnap" text="Vis Puls" textFill="#310ee1" />
+      <ImageView fitHeight="87.0" fitWidth="106.0" layoutX="124.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@male_patient-512.png" />
+      </image>
+      </ImageView>
+      <ImageView fitHeight="321.0" fitWidth="1924.0" layoutX="-34.0" layoutY="400.0" pickOnBounds="true" preserveRatio="false">
+         <image>
+            <Image url="@Empty_ECG_paper.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="90.0" layoutY="101.0" mnemonicParsing="false" onAction="#StartRecording" prefHeight="25.0" prefWidth="123.0" text="Gem Puls" textFill="#e10aaf" />
       <Button layoutX="64.0" layoutY="374.0" mnemonicParsing="false" onAction="#StopEKg" text="Stop" />
-      <TextArea fx:id="EKGDataOutput" layoutX="7.0" layoutY="39.0" prefHeight="200.0" prefWidth="271.0" />
-      <TextField fx:id="CPRField" layoutX="437.0" layoutY="2.0" text="Indtast CPR" />
+      <TextField fx:id="CPRField" layoutX="18.0" layoutY="59.0" prefHeight="25.0" prefWidth="106.0" text="Indtast CPR" />
       <Button layoutX="7.0" layoutY="15.0" mnemonicParsing="false" onAction="#TilbageTilStart" text="Tilbage" />
-      <Button layoutX="504.0" layoutY="424.0" mnemonicParsing="false" onAction="#loadData" prefHeight="25.0" prefWidth="88.0" text="Load Data" />
-      <LineChart layoutX="175.0" layoutY="299.0" prefHeight="150.0" prefWidth="308.0">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </LineChart>
-      <Polyline fx:id="polyline" layoutX="223.0" layoutY="343.0" onMouseClicked="#ekgKnap" strokeType="INSIDE" />
-      <Button layoutX="5.0" layoutY="330.0" mnemonicParsing="false" onMouseClicked="#ekgKnap" prefHeight="27.0" prefWidth="170.0" style="-fx-border-color: black;" text="Tegn EKGGRAF:" />
-      <Button layoutX="418.0" layoutY="239.0" mnemonicParsing="false" onAction="#HentEkgData" text="Button" />
-      <TextArea fx:id="ÆgteEKGDataOutput" layoutX="337.0" layoutY="39.0" prefHeight="200.0" prefWidth="250.0" />
+      <Button layoutX="2.0" layoutY="173.0" mnemonicParsing="false" onAction="#TempKnap" text="Vis Temperatur" textFill="#0033ff" />
+      <Button layoutX="611.0" layoutY="173.0" mnemonicParsing="false" onAction="#loadData" prefHeight="25.0" prefWidth="88.0" text="Load Data" />
+      <Polyline fx:id="polyline" layoutX="50.0" layoutY="800.0" onMouseClicked="#ekgKnap" stroke="crimson" strokeType="CENTERED" />
+      <Button layoutX="5.0" layoutY="330.0" mnemonicParsing="false" onAction="#ekgKnap" prefHeight="27.0" prefWidth="170.0" style="-fx-border-color: #1b3de5;" text="Tegn EKGGRAF:" />
+      <Label fx:id="puls" layoutX="213.0" layoutY="105.0" prefHeight="17.0" prefWidth="170.0" textFill="#0533eb" />
+      <Button layoutX="18.0" layoutY="139.0" mnemonicParsing="false" onAction="#SPO2Knap" text="Vis SPO2" textFill="#0428f2" />
+      <Label fx:id="SPO2" layoutX="213.0" layoutY="143.0" prefHeight="17.0" prefWidth="170.0" textFill="#0f2bfc" />
+      <Label fx:id="temp" layoutX="213.0" layoutY="177.0" prefHeight="17.0" prefWidth="286.0" textFill="#0517da" />
+      <Button layoutX="89.0" layoutY="139.0" mnemonicParsing="false" onAction="#GemSPO2" prefHeight="25.0" prefWidth="123.0" text="Gem SPO2" textFill="#fc00bd" />
+      <Button layoutX="105.0" layoutY="173.0" mnemonicParsing="false" onAction="#GemTemp" text="Gem Temperatur" textFill="#ff00bf" />
+      <Button layoutX="185.0" layoutY="321.0" mnemonicParsing="false" onAction="#GemEKGdata"  prefHeight="43.0" prefWidth="106.0" text="Gem EKG-data" />
    </children>
 </AnchorPane>

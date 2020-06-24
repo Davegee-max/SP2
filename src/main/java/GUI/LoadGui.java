@@ -1,9 +1,11 @@
 package GUI;
 
-import Data.EKGDAO;
-import Data.EKGDAOSQLImpl;
-import Data.EKGDTO;
-import Data.SQLConnector;
+import Data.EKG.EKGDAO;
+import Data.EKG.EKGDAOSQLImpl;
+import Data.EKG.EKGDTO;
+import Data.Puls.PulsDAO;
+import Data.Puls.PulsDAOSQLImpl;
+import Data.Puls.PulsDTO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -29,11 +31,10 @@ public class LoadGui {
        List<EKGDTO> ekgData = ekgdao.load(time);
         String text ="";
         for(EKGDTO data: ekgData) {
-           text += "Time: " + data.getTime() + " CPR: " +  data.getCPR() + " EKG: " +data.getEKG() + "\r\n";
+           text += "Time: " + data.getTime() + " CPR: " +  data.getCPR() + " Data.EKG: " +data.getEKG() + "\r\n";
            EKGDataArea.setText(text);
         }
         }
-
 
 
 
@@ -49,4 +50,17 @@ public class LoadGui {
         stagestart.setScene(startscene);
         stagestart.show();
     }
-}
+
+    public void loadPuls(ActionEvent event) {
+        LocalDateTime localDateTime = datePicker.getValue().atStartOfDay();
+        Timestamp time = Timestamp.valueOf(localDateTime);
+        PulsDAO pulsDAO = new PulsDAOSQLImpl();
+        List<PulsDTO> pulsData = pulsDAO.load(time);
+        String text ="";
+        for(PulsDTO data: pulsData) {
+            text += "Time: " + data.getTime() + " CPR: " +  data.getCPR() + " Data.EKG: " +data.getPuls() + "\r\n";
+            EKGDataArea.setText(text);
+        }
+    }
+    }
+
