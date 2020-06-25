@@ -31,67 +31,70 @@ public class GUIController implements EKGObserver, PulsObserver, SPO2Observer, T
     public TextArea ÆgteEKGDataOutput;
     public Polyline polyline;
     public boolean jatjak = true;
-    private double x=0.0;
+    private double x = 0.0;
     public Label puls;
     public Label SPO2;
     public Label temp;
+    public Label alarmPuls;
     private boolean gemSPO2;
     private boolean gemTemp;
     private boolean gemEKG;
     private boolean record;
 
 
+
     public void StartRecording(ActionEvent actionEvent) {
         this.record = !this.record;
     }
-@Override
+
+    @Override
 
     public void notify(List<EKGDTO> ekgdtoList) {
 
-    List<Double> punkter = new LinkedList<>();
+        List<Double> punkter = new LinkedList<>();
 
-    Platform.runLater(new Runnable() {
-        @Override
-        public void run() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
 
-            for (int i = 0; i < ekgdtoList.size(); i++) {
-                EKGDTO ekgdto1 = ekgdtoList.get(i);
+                for (int i = 0; i < ekgdtoList.size(); i++) {
+                    EKGDTO ekgdto1 = ekgdtoList.get(i);
 
-                punkter.add(x);
-                punkter.add(0.2 * -(double) ekgdto1.getEKG());
-                x++;
+                    punkter.add(x);
+                    punkter.add(0.2 * -(double) ekgdto1.getEKG());
+                    x++;
 
-
-            }
-            polyline.getPoints().addAll(punkter);
-            if (x > 2000) {
-                x = 0;
-
-                polyline.getPoints().clear();
-            }
-
-
-        }
-
-    });
-    Platform.runLater(new Runnable() {
-        public void run() {
-            for (int i = 0; i < ekgdtoList.size(); i++) {
-                ekgdtoList.get(i).setTime(new Timestamp(System.currentTimeMillis()));
-                ekgdtoList.get(i).setCPR(CPRField.getText());
-
-                if (gemEKG) {
-
-                    EKGDAO ekgdao = new EKGDAOSQLImpl();
-                    ekgdao.save(ekgdtoList);
 
                 }
-//ekgdao.batchsave(ekgdto);
+                polyline.getPoints().addAll(punkter);
+                if (x > 2000) {
+                    x = 0;
+
+                    polyline.getPoints().clear();
+                }
+
+
             }
 
+        });
+
+
+        if (gemEKG) {
+
+
+            EKGDAO ekgdao = new EKGDAOSQLImpl();
+            ekgdao.save(ekgdtoList);
+
         }
-    });
-}
+    }
+
+
+
+
+
+
+
+
 
     public void TrykStart(ActionEvent actionEvent) {
 
@@ -165,6 +168,12 @@ public class GUIController implements EKGObserver, PulsObserver, SPO2Observer, T
             public void run() {
         puls.setText("Puls: "+pulsDTO.getPuls() + " BPM");
          pulsDTO.setCPR(CPRField.getText());
+         if(pulsDTO.getPuls() < 80) {
+             alarmPuls.setText("ALARM");
+         }
+             else{ alarmPuls.setText("");
+             }
+
         if (record) {
                     PulsDAO pulsDAO = new PulsDAOSQLImpl();
                    pulsDAO.save(pulsDTO);
@@ -172,6 +181,7 @@ public class GUIController implements EKGObserver, PulsObserver, SPO2Observer, T
             }
 });
     }
+ 
 
     public void SPO2Knap(ActionEvent event) {
         SPO2Generator spo2Simulator = new SPO2Generator();

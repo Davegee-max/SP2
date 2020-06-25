@@ -19,11 +19,10 @@
          </image>
       </ImageView>
       <Button layoutX="90.0" layoutY="101.0" mnemonicParsing="false" onAction="#StartRecording" prefHeight="25.0" prefWidth="123.0" text="Gem Puls" textFill="#e10aaf" />
-      <Button layoutX="64.0" layoutY="374.0" mnemonicParsing="false" onAction="#StopEKg" text="Stop" />
       <TextField fx:id="CPRField" layoutX="18.0" layoutY="59.0" prefHeight="25.0" prefWidth="106.0" text="Indtast CPR" />
       <Button layoutX="7.0" layoutY="15.0" mnemonicParsing="false" onAction="#TilbageTilStart" text="Tilbage" />
       <Button layoutX="2.0" layoutY="173.0" mnemonicParsing="false" onAction="#TempKnap" text="Vis Temperatur" textFill="#0033ff" />
-      <Button layoutX="611.0" layoutY="173.0" mnemonicParsing="false" onAction="#loadData" prefHeight="25.0" prefWidth="88.0" text="Load Data" />
+      <Button layoutX="406.0" layoutY="330.0" mnemonicParsing="false" onAction="#loadData" prefHeight="27.0" prefWidth="153.0" text="Hent Data" />
       <Polyline fx:id="polyline" layoutX="50.0" layoutY="800.0" onMouseClicked="#ekgKnap" stroke="crimson" strokeType="CENTERED" />
       <Button layoutX="5.0" layoutY="330.0" mnemonicParsing="false" onAction="#ekgKnap" prefHeight="27.0" prefWidth="170.0" style="-fx-border-color: #1b3de5;" text="Tegn EKGGRAF:" />
       <Label fx:id="puls" layoutX="213.0" layoutY="105.0" prefHeight="17.0" prefWidth="170.0" textFill="#0533eb" />
@@ -32,6 +31,7 @@
       <Label fx:id="temp" layoutX="213.0" layoutY="177.0" prefHeight="17.0" prefWidth="286.0" textFill="#0517da" />
       <Button layoutX="89.0" layoutY="139.0" mnemonicParsing="false" onAction="#GemSPO2" prefHeight="25.0" prefWidth="123.0" text="Gem SPO2" textFill="#fc00bd" />
       <Button layoutX="105.0" layoutY="173.0" mnemonicParsing="false" onAction="#GemTemp" text="Gem Temperatur" textFill="#ff00bf" />
-      <Button layoutX="185.0" layoutY="321.0" mnemonicParsing="false" onAction="#GemEKGdata"  prefHeight="43.0" prefWidth="106.0" text="Gem EKG-data" />
+      <Button layoutX="192.0" layoutY="330.0" mnemonicParsing="false" onAction="#GemEKGdata" prefHeight="27.0" prefWidth="199.0" text="Gem EKG-data" />
+      <Label fx:id="alarmPuls" layoutX="406.0" layoutY="105.0" prefHeight="17.0" prefWidth="75.0" textFill="#f20000" />
    </children>
 </AnchorPane>

@@ -61,7 +61,6 @@ public class EKGSensor implements EKGObservable {
                     if (!Objects.equals(inputValues[h],"")) {
                        EKGDTO ekgdto = new EKGDTO();
                         ekgdto.setTime(new Timestamp(System.currentTimeMillis()));
-
                         try {
                             ekgdto.setEKG(Integer.parseInt(inputValues[h]));
                         } catch(Exception e){
@@ -76,13 +75,7 @@ public class EKGSensor implements EKGObservable {
                 }
                 guiList.addAll(ekgdtos);
                 if(guiList.size()>100){
-                    //TODO print i gui
-                    for (int k=0; k<guiList.size() ; k++)
-                    {
 
-
-
-                    }
                     if(observer!=null){
                         List<EKGDTO> notifyList = guiList;
                         guiList = new LinkedList<>();

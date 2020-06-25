@@ -1,11 +1,10 @@
 package Data.SPO2;
 
 import Data.EKG.SQLConnector;
+import Data.Puls.PulsDTO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SPO2DAOSQLImpl implements SPO2DAO {
@@ -25,7 +24,23 @@ public class SPO2DAOSQLImpl implements SPO2DAO {
     }
 
     @Override
-    public List<SPO2DAO> load(Timestamp time) {
-        return null;
-    }
-}
+    public List<SPO2DTO> load(Timestamp time) {
+        List<SPO2DTO> data = new ArrayList<>();
+        Connection connection = SQLConnector.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM SPO2 WHERE time>?");
+            //SELECT Puls.puls, Temperatur.Temperatur FROM Puls INNER JOIN Temperatur ON Temperatur.CPR = Puls.CPR WHERE time>?
+            preparedStatement.setTimestamp(1, time);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                SPO2DTO spo2DTO = new SPO2DTO();
+                spo2DTO.setCPR(resultSet.getString("CPR"));
+                spo2DTO.setTime(resultSet.getTimestamp("time"));
+                spo2DTO.setSPO2(resultSet.getDouble("SPO2"));
+                data.add(spo2DTO);
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return data; }}

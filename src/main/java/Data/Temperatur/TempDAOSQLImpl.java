@@ -1,11 +1,10 @@
 package Data.Temperatur;
 
 import Data.EKG.SQLConnector;
+import Data.SPO2.SPO2DTO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TempDAOSQLImpl implements TempDAO{
@@ -25,6 +24,21 @@ public class TempDAOSQLImpl implements TempDAO{
 
     @Override
     public List<TempDTO> load(Timestamp time) {
-        return null;
-    }
-}
+        List<TempDTO> data = new ArrayList<>();
+        Connection connection = SQLConnector.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Temperatur WHERE time>?");
+            preparedStatement.setTimestamp(1, time);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                TempDTO tempDTO = new TempDTO();
+                tempDTO.setCPR(resultSet.getString("CPR"));
+                tempDTO.setTime(resultSet.getTimestamp("time"));
+                tempDTO.setTemp(resultSet.getDouble("Temperatur"));
+                data.add(tempDTO);
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return data; }}

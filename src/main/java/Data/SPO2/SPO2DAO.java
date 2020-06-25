@@ -8,5 +8,5 @@ public interface SPO2DAO {
     void save(SPO2DTO spo2DTO);
 
 
-    List<SPO2DAO> load(Timestamp time);
+    List<SPO2DTO> load(Timestamp time);
 }

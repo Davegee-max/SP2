@@ -6,9 +6,12 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LoadGui">
    <children>
       <DatePicker fx:id="datePicker" layoutX="35.0" layoutY="28.0" />
-      <TextArea fx:id="EKGDataArea" layoutX="35.0" layoutY="53.0" prefHeight="200.0" prefWidth="335.0" />
-      <Button layoutX="35.0" layoutY="253.0" mnemonicParsing="false" onAction="#LoadData" text="Load Data" />
+      <TextArea fx:id="EKGDataArea" layoutX="35.0" layoutY="54.0" prefHeight="199.0" prefWidth="505.0" />
+      <Button layoutX="35.0" layoutY="253.0" mnemonicParsing="false" onAction="#LoadData" text="Hent EKG Data" />
       <Button mnemonicParsing="false" onAction="#Tilbage" text="Tilbage" />
-      <Button layoutX="122.0" layoutY="253.0" mnemonicParsing="false" text="Puls" onAction="#loadPuls" />
+      <Button layoutX="142.0" layoutY="253.0" mnemonicParsing="false" onAction="#loadPuls" text="Hent Puls" />
+      <Button layoutX="222.0" layoutY="253.0" mnemonicParsing="false" onAction="#loadSPO2" text="Hent SP02" />
+      <Button layoutX="308.0" layoutY="253.0" mnemonicParsing="false" onAction="#loadTemp" text="Hent Temperatur" />
+      <Label layoutX="215.0" layoutY="32.0" text="Husk at vælge en dato" />
    </children>
 </AnchorPane>

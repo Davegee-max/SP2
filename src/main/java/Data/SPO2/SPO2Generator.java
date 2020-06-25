@@ -30,7 +30,7 @@ public class SPO2Generator implements Runnable, SPO2Observable {
         }
 
         public double getSP02() {
-            double data = Math.random() * 20 + 80;
+            double data = Math.random() * 2 + 97;
             double dataSP02 = Math.round(data);
             return dataSP02;
 
